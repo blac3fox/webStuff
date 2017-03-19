@@ -1,0 +1,108 @@
+<script>
+    var cookiecount = 0;
+    var autoclick = 0;
+    var autofarm = 0;
+    var mines = 0;
+    var multiplier = 1;
+    
+    function update(){
+        document.getElementById('text').value = cookiecount;
+        document.title = cookiecount + " Cookies - Cookie Clikerv1";
+        document.getElementById('amountItem').innerHTML = "You Own " + autoclick + " Auto-Clicker";
+        document.getElementById('amountFarm').innerHTML = "You Own " + autofarm + " Farms";
+        document.getElementById('amountMine').innerHTML = "You Own " + mines + " Mines";       document.getElementById('costFarm').innerHTML = ((autofarm+1)*15) + " Cookies";
+        document.getElementById('costItem').innerHTML = ((autoclick+1)*12) + " Cookies";
+        document.getElementById('costMine').innerHTML = ((mines+1)*30) + " Cookies";
+        document.getElementById('cookiesSecond').innerHTML = "You are getting " +  (((autoclick)+(autofarm*2)+(mines*5))*multiplier) + " Cookies per/s";
+    }
+    function timer() {
+        cookiecount = cookiecount + autoclick;
+        cookiecount = cookiecount + autofarm*2;
+        cookiecount = cookiecount + mines*5;
+        update();
+    }
+    setInterval(timer, 1000)
+</script>
+<html>
+    <head>
+        <title>Cookie Clikerv1</title>
+        <link href="css/styles.css" rel="stylesheet">
+    </head>
+        <body>
+            <div class="main">
+            <p id= "cookiesSecond">You are getting 0 cookies per/s</p>
+            
+            <a href=# onclick="add()"><img src="Cookie.png"></a>
+            <br><br>
+            You got:
+            <input type="text" id="text" disabled style= text-aling:center>
+            <script>
+                function add() {
+                    cookiecount = cookiecount + 1
+                    update()
+                }
+            </script>
+            Cookies
+            <br><br>
+            
+            <button><a href="#" onClick="Save()">Save</a></button>
+            <button><a href="#" onClick="Load()">Load</a></button>
+            <br><br>
+            
+            <p>Get 1 Auto-Clicker</p>
+            <button><a href="#" onClick="buyitem()">Buy Auto</a></button>
+            <p id="costItem">12 Cookies</p>
+            <p id="amountItem">You Own 0 Auto-Clicker</p>
+            
+            <p>Get 1 Farm</p>
+            <button><a href="#" onClick="buyfarm()">Buy Farm</a></button>
+            <p id="costFarm">15 Cookies</p>
+            <p id="amountFarm">You Own 0 Farms</p>
+            
+            <p>Get 1 Mine</p>
+            <button><a href="#" onClick="buymine()">Buy Mine</a></button>
+            <p id="costMine">30 Cookies</p>
+            <p id="amountMine">You Own 0 Mines</p>
+            </div>
+            <script>
+                function Save() {
+                    localStorage.setItem("cookies",cookiecount);
+                    localStorage.setItem("autoclick", autoclick);
+                    localStorage.setItem("autofarm",autofarm);
+                    localStorage.setItem("mines",mines);
+                }
+                function Load() {
+                    cookiecount = localStorage.getItem("cookies");
+                    cookiecount = parseInt(cookiecount);
+                    autoclick = localStorage.getItem("autoclick");
+                    autoclick = parseInt(autoclick);
+                    autofarm = localStorage.getItem("autofarm");
+                    autofarm = parseInt(autofarm);
+                    mines = localStorage.getItem("mines");
+                    update()
+                }
+                function buyitem(){
+                    if(cookiecount >= ((autoclick+1)*12)){
+                        cookiecount = cookiecount - ((autoclick+1)*12);
+                        autoclick = autoclick + 1;
+                        update()        
+                    }
+                }
+                function buyfarm(){
+                    if(cookiecount >= ((autofarm+1)*15)){
+                        cookiecount = cookiecount - ((autofarm+1)*15);
+                        autofarm = autofarm + 1;
+                        update()
+                    }
+                }
+                function buymine() {
+                    if(cookiecount >= ((mines+1)*30)){
+                        cookiecount = cookiecount - ((mines+1)*30);
+                        mines = mines + 1;
+                        update()
+                    }
+                }
+            </script>
+    
+        </body>
+</html>

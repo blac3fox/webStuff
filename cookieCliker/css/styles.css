@@ -1,0 +1,13 @@
+p {
+    text-align: center;
+    text-indent: 8pt;
+    font: 10pt/15pt "Myriad Roman", "Verdana"
+}
+
+div.main {
+    text-align: center;
+}
+
+body {
+    align-items: center;
+}
